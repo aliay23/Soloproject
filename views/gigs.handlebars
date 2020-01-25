@@ -7,10 +7,13 @@
       <p>{{description}}</p>
       <ul>
         <li>Budget: {{budget}}</li>
-        <li><a href="mailto:{{contact_email}}" class="btn btn-reverse">Apply Now</a></li>
+        <li><a href="/login" class="btn btn-reverse">Apply Now</a></li>
       </ul>
       <div class="tech">
         <small>Technologies Needed: <span>{{technologies}}</span></small>
+        <form method="POST" action="/gigs/add_method=DELETE">
+  <button type="submit">Delete</button>
+</form>
       </div>
     </div>
     {{else}}

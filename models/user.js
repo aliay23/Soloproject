@@ -1,3 +1,34 @@
+const Sequelize = require('sequelize');
+//const db = require('../config/database');
+module.exports = (sequelize, DataTypes) => {
+let User = sequelize.define("user", {
+//const User = db.define('user', {
+    name: {
+      type: Sequelize.STRING
+    },
+    username: {
+      type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING
+    }}, {});
+    return User; 
+  };
+  //return User;
+  
+  //module.exports = User;
+
+
+
+
+
+
+
+
+
+
+/*
+
 const User = (sequelize, DataTypes) => {
     const myUser = sequelize.define('User', {
       username: DataTypes.STRING,
@@ -17,7 +48,7 @@ const User = (sequelize, DataTypes) => {
 
 
 
-
+*/
 
 
 
@@ -82,7 +113,6 @@ module.exports = users;
 
 /*module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-            name: {type: DataTypes.STRING},
             email: {type: DataTypes.STRING, unique: true},
             username: {type: DataTypes.STRING, unique: true},
             password: {type: DataTypes.STRING}

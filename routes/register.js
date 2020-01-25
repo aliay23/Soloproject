@@ -1,14 +1,20 @@
 var router = require('express').Router();
-var User = require('../models/user');
+//var User = require('../models');
+var Model = require('../models');
 
 router.post('/', function (req, res){
-  User.findByUsername(req.body.username).then(function (user){
+  console.log(Model);
+  Model.User.findByUsername(req.body.username).then(function (user){
   if(user) {
       return res.status(400).send('Username already taken');
     }
 
     
-    return User.create(req.body.username,req.body.name, req.body.email,req.body.password).then(function(user){
+    return User.create(
+      {username: req.body.username, 
+        name: req.body.name, 
+        email: req.body.email, 
+        password:  req.body.password }).then(function(user){
         console.log('Created new user');
         req.login(user, function(err){
           if (err) {
@@ -24,6 +30,7 @@ router.post('/', function (req, res){
       res.sendStatus(500);
     });
   });
+  router.get('/', (req, res) => res.render('register'));
 
   module.exports = router;
 

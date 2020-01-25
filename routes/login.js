@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Sequelize = require('sequelize');
-//const passport = require('passport');
-//require('../config/passport')(passport);
+const User = require('../models');
+const Model = require('../models');
+
+//const Sequelize = require('sequelize');
+const passport = require('passport');
+require('../config/passport');
 //const { ensureAuthenticated, forwardAuthenticated } = require('../config/passport');
-const Op = Sequelize.Op;
+//const Op = Sequelize.Op;
 
 /*router.get('/', (req, res) => 
   User.findAll()
@@ -26,7 +28,22 @@ router.get('/', (req, res) => res.render('login'));
 
 // Display login form
 //router.get('/', (req, res) => res.render('login'));
+router.post('/', function (req, res) {
+  Model.User
+    .findOne({
+      username: req.body.username,
+      password: req.body.password
+    })
+    .exec(function (err, result) {
+      if(result) { // auth was successful
+        req.session.user = result; // so writing user document to session
+        return res.redirect('/gigs'); // redirecting user to interface
+      }
 
+      // auth not successful, because result is null
+      res.redirect('/gigs'); // redirect to login page
+  });
+});
 
 
 
@@ -62,11 +79,29 @@ router.post('/login.js', function(req, res) {
   username: req.body.username,
 */
 // Add a gig
-router.post('/login', (req, res) => {
+/*router.post('/', (req, res) => {
   let { email, username, password, } = req.body;
   let errors = [];
+  router.post('/', passport.authenticate('local'), function(req, res){
+    */// this is where we need to check the password
+    //router.post('/', passport.authenticate('local'), function(req, res){
+      // this is where we need to check the password
+    
+      //res.sendStatus(200);
+    //});
 
-  // Validate Fields
+    
+ 
+  
+  //router for delete where logout will be
+  
+  router.delete('/', function(req, res){
+    req.logout();
+    res.sendStatus(204);
+  });
+
+
+  /*// Validate Fields
   if(!email) {
     errors.push({ text: 'Please add email' });
   }
@@ -101,7 +136,7 @@ router.post('/login', (req, res) => {
   }
 });
 
-
+*/
 
 //User.findAll({ where: { username: { [Op.like]: '%' + us + '%' } } })
 //.then(login => res.render('login', { login }))

@@ -174,7 +174,11 @@ input[type='search'] {
   list-style: none;
   display: flex;
 }
-
+input-box
+.gig li {
+  margin-right: 0.5rem;
+  padding: 0.6rem;
+}
 .gig li {
   margin-right: 0.5rem;
   padding: 0.6rem;

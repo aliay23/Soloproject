@@ -1,4 +1,28 @@
-module.exports = (sequelize, DataTypes) => {
+const Sequelize = require('sequelize');
+const db = require('../config/database');
+
+const Gig = db.define('gigs', {
+  title: {
+    type: Sequelize.STRING
+  },
+  technologies: {
+    type: Sequelize.STRING
+  },
+  description: {
+    type: Sequelize.STRING
+  },
+  budget: {
+    type: Sequelize.STRING
+  },
+  contact_email: {
+    type: Sequelize.STRING
+  }
+})
+
+module.exports = Gig;
+
+
+/*module.exports = (sequelize, DataTypes) => {
   const Gig = sequelize.define('Gig', {
     title: DataTypes.STRING,
     technologies: DataTypes.STRING,
@@ -15,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 //sequelize model:generate --name User --attributes username:string,email:string,password:string
-
+*/
 
 /*const Sequelize = require('sequelize');
 const db = require('../config/database');

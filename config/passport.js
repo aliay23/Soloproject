@@ -1,10 +1,61 @@
-const bcrypt = require('bcrypt'),
+// all of passport related stuff
+
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var User = require("../models/User");
+
+passport.use("local", new LocalStrategy(
+  { usernameField: "username", passwordField: "password" },
+  findAndComparePassword
+));
+
+// user -> userID
+passport.serializeUser(function(user, done) {
+  console.log("Serializing User");
+  done(null, username);
+});
+
+// userID -> user
+passport.deserializeUser(function(id, done) {
+  console.log("Deserializing User");
+  User
+    .findById(id)
+    .then(function(user) {
+      done(null, user);
+    })
+    .catch(function(err) {
+      console.log("Error deserializing User", err);
+      return done(err);
+    });
+});
+
+function findAndComparePassword(username, password, done) {
+  console.log("Finding and comparing passwords");
+  User.findAndComparePassword(username, password).then(function(result){
+    console.log('result', result);
+    if (result.match) {
+      done(null, result.user);
+    } else {
+      done(null, false);
+    }
+  }).catch(function(err){
+    done(err);
+  });
+}
+
+
+
+
+
+
+
+/*const bcrypt = require('bcrypt'),
 BCRYPT_SALT_ROUNDS = 12,
 JWTstrategy = require('passport-jwt').Strategy,
 ExtractJWT = require('passport-jwt').ExtractJwt,
 Sequelize = require('sequelize'),
 Op = Sequelize.Op,
-models = require( '../models/'),
+Var User = require( '../models/User'),
 localStrategy = require('passport-local').Strategy;
 // passport = require("passport");
 
@@ -154,6 +205,7 @@ id,
 });
 
 }
+*/
 /*var passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy
     , db = require('../models/users')
