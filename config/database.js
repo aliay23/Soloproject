@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports =  new Sequelize('codegig', 'postgres', '123456', {
+const sequelize =  new Sequelize('codegig', 'postgres', '123456', {
   host: 'localhost',
   dialect: 'postgres',
   operatorsAliases: false,
@@ -12,13 +12,17 @@ module.exports =  new Sequelize('codegig', 'postgres', '123456', {
     idle: 10000
   },
 });
+module.exports = sequelize;
+
+
+/*
 module.exports = {
   ensureAuthenticated: function(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
     req.flash('error_msg', 'Please log in to view that resource');
-    res.redirect('/users/login');
+    res.redirect('/login');
   },
   forwardAuthenticated: function(req, res, next) {
     if (!req.isAuthenticated()) {
@@ -27,3 +31,4 @@ module.exports = {
     res.redirect('/gigs');      
   }
 };
+*/

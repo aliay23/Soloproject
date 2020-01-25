@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
+//const db = require('../config/database');
 const Gig = require('../models/Gig');
 const Sequelize = require('sequelize');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/database');
@@ -16,14 +16,46 @@ router.get('/', (req, res) =>
     .catch(err => console.log(err)));
 
     // Dashboard
-router.get('/dashboard', ensureAuthenticated, (req, res) =>
-res.render('dashboard', {
-  user: req.user
-})
-);
+//router.get('/dashboard', ensureAuthenticated, (req, res) =>
+//res.render('dashboard', {
+  //user: req.user
+//})
+//);
+
 
 // Display add gig form
 router.get('/add', (req, res) => res.render('add'));
+
+
+
+
+
+
+//////display login ---remove if not working already in loginjs testing 
+
+/*router.get('/login.js', (req, res) => res.render('login'));
+
+
+const users = require('../models/users');
+
+router.post('/login.js', function(req, res) {
+    if (!req.body.email || !req.body.password) {
+        res.status(400).send({
+            status: false,
+            message: ''
+        });
+    } else {
+        users.create({
+            email: req.body.email,
+            password: req.body.password,
+            username: req.body.username,
+        }).then((user) => res.status(201).send(user)).catch((error) => {
+            console.log(error);
+            res.status(400).send(error);
+        });
+    }
+});
+*/
 
 // Add a gig
 router.post('/add', (req, res) => {
@@ -90,3 +122,9 @@ router.get('/search', (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
